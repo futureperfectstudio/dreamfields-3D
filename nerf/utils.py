@@ -29,7 +29,7 @@ import torch.distributed as dist
 from torch.utils.data import Dataset, DataLoader
 
 import trimesh
-import marching_cubes as mcubes
+import mcubes
 import pymeshlab
 import imageio
 from rich.console import Console
