@@ -1,0 +1,24 @@
+torch-ema
+ninja
+trimesh
+opencv-python
+tensorboardX
+torch
+numpy 
+pandas
+tqdm
+matplotlib
+# PyMCubes
+# git+https://github.com/JustusThies/PyMarchingCubes.git
+rich
+# pysdf
+dearpygui
+packaging
+scipy
+lpips
+imageio
+imageio-ffmpeg
+pymeshlab
+ipyplot
+IPython
+git+https://github.com/openai/CLIP.git
