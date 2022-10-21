@@ -29,7 +29,7 @@ import torch.distributed as dist
 from torch.utils.data import Dataset, DataLoader
 
 import trimesh
-import mcubes
+import marching_cubes as mcubes
 import pymeshlab
 import imageio
 from rich.console import Console
@@ -671,7 +671,7 @@ class Trainer(object):
 
     ### ------------------------------
 
-    def train(self, train_loader, valid_loader, max_epochs):
+    def train(self, train_loader, valid_loader, max_epochs, mesh_res, mesh_trh):
         if self.use_tensorboardX and self.local_rank == 0:
             self.writer = tensorboardX.SummaryWriter(os.path.join(self.workspace, "run", self.name))
         
@@ -689,6 +689,7 @@ class Trainer(object):
                      clear_output()
                 self.evaluate_one_epoch(valid_loader)
                 self.save_checkpoint(full=False, best=True)
+                self.save_mesh(resolution=mesh_res, threshold=mesh_trh)
 
                
 
