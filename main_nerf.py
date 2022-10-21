@@ -126,9 +126,17 @@ if __name__ == '__main__':
         else:
             valid_loader = NeRFDataset(opt, device=device, type='val', H=opt.H, W=opt.W, radius=opt.radius, fovy=opt.fovy, size=opt.val_samples).dataloader()
             max_epoch = np.ceil(opt.iters / len(train_loader)).astype(np.int32)
-            trainer.train(train_loader, valid_loader, max_epoch)
+            trainer.train(train_loader, valid_loader, max_epoch, opt.mesh_res, opt.mesh_trh)
 
             # also test
             test_loader = NeRFDataset(opt, device=device, type='test', H=opt.H, W=opt.W, radius=opt.radius, fovy=opt.fovy, size=opt.test_samples).dataloader()
-            trainer.save_mesh(resolution=opt.mesh_res, threshold=opt.mesh_trh)
+
+            # This function below was here previously and would save the mesh... 
+            # at the last iteration ex. 300
+            # We want to save the mesh at each checkpoint
+            # So I've moved the save_mesh functionality to trainer.train directly
+            # and now we're pasing in the necessary arguments in to trainer.train
+
+            # trainer.save_mesh(resolution=opt.mesh_res, threshold=opt.mesh_trh)
+
             trainer.test(test_loader, write_video=opt.save_video) # test and save video
